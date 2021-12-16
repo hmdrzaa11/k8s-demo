@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+
+spec:
+  type: NodePort
+  selector: #the whole job of a NodePort is to expose some Pods to the outside world here we are telling it to expose
+    app: posts #those that have label of "app: posts"
+
+  ports:
+    # our express server is listening on port 4000 so we need to expose that port to outside world
+    - name: posts
+      protocol: TCP
+      port: 4000 # this one is attached to the "NodePort" object and this has a lot of ports but we just choose 4000 and we can change
+      #it but we don't and this means any body wants to talk to the "express" needs to go through Me and i like to only open my 4000
+      #right now
+      targetPort: 4000 # this is the port we want to route traffic into it must be 4000 because express listening on 4000

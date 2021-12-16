@@ -1,0 +1,17 @@
+### GET ALL POSTS
+GET http://192.168.49.2:30533/posts
+
+### GET ALL POSTS
+GET http://posts.com/posts
+
+### GET REACT
+GET http://posts.com
+
+
+### CREATE POST
+POST http://posts.com/posts/create
+Content-Type: application/json
+
+{
+    "title":"Post of Post"
+}

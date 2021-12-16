@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: posts-depl
+
+spec:
+  replicas: 1
+
+  selector: #here we telling deployment which Pods you need to manage
+    matchLabels: #here we saying take a look at all Pods that created and see their labels
+      app: posts # if their label is "app:posts" manage that one with this file
+
+  #here we put exact configuration of Pod that need to be created
+  template:
+    metadata:
+      labels: #here we assign a label to it to make the "deployment" to find it easily
+        app: posts
+
+    spec:
+      containers:
+        - name: posts
+          image: hmdrzadev/posts
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+
+spec:
+  selector:
+    app: posts
+  type: ClusterIP
+
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
